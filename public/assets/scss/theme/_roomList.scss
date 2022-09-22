@@ -1,0 +1,67 @@
+.roomList {
+	margin: 5em auto;
+}
+
+.room {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
+	margin: 1.5rem auto;
+
+	& .room-img {
+		height: 20em;
+		min-width: 20em;
+		border-radius: 10px;
+		background-size: 35em;
+		background-position: center;
+		background-clip: border-box;
+		background-repeat: no-repeat;
+		background-origin: border-box;
+		transition: all 1s ease;
+
+		&:hover {
+			background-size: 38em;
+			background-blend-mode: multiply;
+			background-color: #7c707b;
+		}
+	}
+
+	& .room-description {
+		margin-top: 1.5rem;
+
+		& .footer {
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: flex-end;
+			align-items: center;
+
+			& .price {
+				margin-left: 1rem;
+			}
+		}
+	}
+
+}
+
+@include breakpoint-infinit("md") {
+	.room {
+		flex-direction: row;
+
+		& .room-img {}
+
+		& .room-description {
+			margin-top: initial;
+			margin-left: 2%;
+
+			& .footer {
+				flex-direction: row;
+
+				& .price {
+					margin-right: 1rem;
+				}
+			}
+		}
+
+	}
+}

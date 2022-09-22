@@ -1,0 +1,19 @@
+/* room details */
+
+.details{
+	margin: 5% auto;
+	align-items: center;
+
+	& .image{
+		border-radius: 20px;
+	}
+	& .description{
+		& .heading{
+
+		}
+	}
+
+	& .img-cell{
+		width: 100%;
+	}
+}
