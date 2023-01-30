@@ -4,7 +4,10 @@ import OtherServices from "../layouts/otherServices/otherServices";
 import PopularRooms from "../layouts/popularRooms/PopularRooms";
 import TestimonialSection from "../layouts/testimonial/testimonialSection";
 
+
 function Home() {
+	
+
 	return (
 		<>
 			<HeroSectionFullScreen />
