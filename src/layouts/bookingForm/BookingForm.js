@@ -51,6 +51,7 @@ function BookingForm({ className, css, tab, heading }) {
 		event.preventDefault();
 
 		const user = window.localStorage.getItem("user");
+		console.log("user", user);
 		if (!user) navigate("/auth", { state: { prevPath: location.pathname + location.search } });
 
 		// get the room being booked
@@ -65,6 +66,7 @@ function BookingForm({ className, css, tab, heading }) {
 			roomPrice: theRoom.price
 		}
 
+		return;
 		try {
 			const book = await bookRoom(data);
 			console.log("success", book.data);

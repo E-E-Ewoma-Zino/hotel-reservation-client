@@ -67,12 +67,12 @@ export default function Details() {
 
 							<div className="row mt-5">
 								<div className="col-12 d-flex justify-content-center align-items-center">
-									<BookingForm className={"banner-right border"} heading="Start Booking" css={{boxShadow: "-1px 11px 20px 4px #e5e5e5", minWidth: "50%"}} tab="d-none" />
 								</div>
 							</div>
 						</div>
 					)
-			}
+				}
+				<BookingForm className={"banner-right border"} heading="Start Booking" css={{boxShadow: "-1px 11px 20px 4px #e5e5e5", minWidth: "50%"}} tab="d-none" />
 		</div>
 	);
 }
