@@ -65,8 +65,8 @@ export default function Details() {
 								</div>
 							</div>
 
-							<div className="row mt-5">
-								<div className="col-12 d-flex justify-content-center align-items-center">
+							<div className="row mt-5 d-flex justify-content-center">
+								<div className="col-12 col-md-8 d-flex justify-content-center align-items-center">
 									<BookingForm className={"banner-right border"} heading="Start Booking" css={{boxShadow: "-1px 11px 20px 4px #e5e5e5", minWidth: "50%"}} tab="d-none" />
 								</div>
 							</div>
