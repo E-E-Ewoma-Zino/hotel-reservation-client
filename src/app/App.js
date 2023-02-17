@@ -14,18 +14,18 @@ import { useEffect, useState } from "react";
 function App() {
 	const [jsScripts, setScripts] = useState([]);
 
-	useEffect(()=> {
+	useEffect(() => {
 		setScripts(Object.values(allScripts));
 	}, []);
-	
-	
+
+
 	return (
 		<BrowserRouter>
 			<Header />
-		{/* Add all script */}
-		{
-			jsScripts.map((src, index) => <Script key={index} src={src} />)
-		}
+			{/* Add all script */}
+			{
+				jsScripts.map((src, index) => <Script key={index} src={src} />)
+			}
 			<Routes>
 				<Route index element={<Navigate to="/home" />} />
 				<Route path="/home" element={<Home />} />
@@ -36,7 +36,7 @@ function App() {
 					<Route index element={<Rooms />} />
 					<Route path="details" element={<RoomDetails />} />
 				</Route>
-				<Route path="*" element={<h1 style={{margin: "5em auto"}}>No Page 404</h1>} />
+				<Route path="*" element={<h1 style={{ margin: "5em auto" }}>No Page 404</h1>} />
 			</Routes>
 			<Footer />
 		</BrowserRouter>

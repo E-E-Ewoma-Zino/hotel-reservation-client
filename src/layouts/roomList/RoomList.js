@@ -29,7 +29,7 @@ function RoomList() {
 					rooms.length && rooms.map(room => (
 						<div className="col-12" key={room._id}>
 							<div className="room">
-								<div className="room-img cursor-pointer" style={{ backgroundImage: `url("${host + room.images[0].path.replace("uploads", "uploads/")}")` }}></div>
+								<div className="room-img cursor-pointer" style={{ backgroundImage: `url("${host + room.images[0]?.path.replace("uploads", "uploads/")}")` }}></div>
 								<div className="room-description">
 									<div className="heading">
 										<h2 className="h2 name"><Link to={"/rooms/details?id=" + room._id} className="text-dark">{room.name}</Link></h2>

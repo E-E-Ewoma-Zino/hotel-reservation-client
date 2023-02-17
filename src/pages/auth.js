@@ -1,5 +1,6 @@
 // auth for users
 import { useState } from "react";
+import useCookies from "react-cookie/cjs/useCookies";
 import { useLocation, useNavigate } from "react-router-dom";
 import { logInUser, registerUser } from "../api/post";
 import Alert from "../components/alert";
@@ -12,6 +13,7 @@ function Auth() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const prevPath = location.state.prevPath || '/';
+	const [ cookie, setUserCookie, removeCookie ] = useCookies(["userCookie"]);
 
 	const [hasAccount, setHasAccount] = useState(true);
 	const [error, setError] = useState({
@@ -24,9 +26,6 @@ function Auth() {
 	function handleSwitch() {
 		setHasAccount(!hasAccount);
 	}
-
-	console.log("navigate", prevPath);
-
 
 	function handelSubmit(event) {
 		const form = event.target.parentElement.parentElement;
@@ -44,7 +43,8 @@ function Auth() {
 					const hasLogedIn = await logInUser(data);
 
 					if (hasLogedIn.data.isLogedIn) {
-						window.localStorage.setItem("user", JSON.stringify(hasLogedIn.data.data));
+						if(cookie.meUser) removeCookie("meUser");
+						setUserCookie("meUser", JSON.stringify(hasLogedIn.data.data), { maxAge: 3600 });
 						navigate(prevPath);
 					}
 				} catch (err) {
@@ -68,7 +68,7 @@ function Auth() {
 					const hasRegister = await registerUser(data);
 
 					if (hasRegister.data.isLogedIn) {
-						window.localStorage.setItem("user", JSON.stringify(hasRegister.data.data));
+						setUserCookie("meUser", JSON.stringify(hasRegister.data.data), { maxAge: 3600});
 						navigate(prevPath);
 					}
 				} catch (err) {

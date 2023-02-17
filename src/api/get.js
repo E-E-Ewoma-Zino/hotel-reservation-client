@@ -10,9 +10,14 @@ export async function roomById(id){
 	return await axios.get(host + "rooms/id?id=" + id);
 }
 
+export async function getCurrentUser(){
+	return await axios.get(host + "user/");
+}
+
 const getApi = {
 	allRooms,
-	roomById
+	roomById,
+	getCurrentUser
 }
 
 export default getApi;
