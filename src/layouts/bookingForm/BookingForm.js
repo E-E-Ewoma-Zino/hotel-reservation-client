@@ -1,25 +1,31 @@
 // Booking form
-import { useCookies } from "react-cookie";
-import { roomById } from "../../api/get";
-import { bookRoom } from "../../api/post";
-import Alert from "../../components/alert";
-import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import moment from "moment";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import TextField from '@mui/material/TextField';
-import { LocalizationProvider, PickersDay } from '@mui/x-date-pickers';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import moment from "moment";
 import { Grid } from "@mui/material";
+import { useCookies } from "react-cookie";
+import Alert from "../../components/alert";
+import TextField from '@mui/material/TextField';
+import { getReservedDates } from "../../api/get";
+import submitBooking from "./functions/submitForm";
+import getStartDate from "./functions/getStartDate";
+import { useEffect, useMemo, useState } from "react";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { useLocation, useNavigate } from "react-router-dom";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import customDayRenderer from "./functions/customDayRenderer";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import validateReservation from "./functions/validateReservation";
 
 function BookingForm({ className, css, tab, heading }) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [cookie] = useCookies(["userCookie"]);
+	const [reservedDates, setReservedDates] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [hasSetStarted, setHasSetStarted] = useState(false);
 
 	const initBooking = useMemo(() => {
 		return {
@@ -30,21 +36,6 @@ function BookingForm({ className, css, tab, heading }) {
 		}
 	}, []);
 
-
-
-	// DatePicker has renderDay prop which we can use to customize the day cells of the calendar. It takes 3 arguments, the first one is the Date object, which we can use to compare with the array of dates that should be disabled:
-
-	const dates = ["2023-02-18", "2023-02-24", "2023-02-20"];
-
-	const customDayRenderer = (date, selectedDates, pickersDayProps) => {
-		const stringifiedDate = moment(date).format("YYYY-MM-DD");
-		if (dates.includes(stringifiedDate)) {
-			return <PickersDay {...pickersDayProps} disabled />;
-		}
-		return <PickersDay {...pickersDayProps} />;
-	};
-
-
 	const [booking, setBooking] = useState(initBooking);
 	const [error, setError] = useState({
 		isError: false,
@@ -53,15 +44,34 @@ function BookingForm({ className, css, tab, heading }) {
 		alert: ""
 	});
 
-	useEffect(() => {
-		function getBookingDetails() {
-			if (cookie.meUser) {
-				setBooking(JSON.parse(localStorage.getItem("booking")));
+	function handleDateChange(event, name) {
+		if (name === "start" && !booking.end) setBooking(prev => {
+			return {
+				...prev,
+				[name]: event,
+				end: event
 			}
-			localStorage.setItem("booking", JSON.stringify(initBooking));
-		}
-		getBookingDetails();
-	}, [location.pathname, cookie.meUser, initBooking]);
+		});
+		else setBooking(prev => {
+			if(!validateReservation(reservedDates, {
+				...prev,
+				[name]: event
+			}, (repetedDate) => {
+				setBooking({ ...booking, start: null, end: null });
+				window.swalWithBootstrapButtons.fire({
+					icon: "warning",
+					title: "Not Available",
+					text: `This room has already been reserved on the ${repetedDate}. 
+					Select days that hasn't been reserved in between`,
+					showConfirmButton: true
+				});
+			})) return {
+				...prev,
+				[name]: event
+			};
+			else return { ...prev }
+		});
+	}
 
 	function handleTextChange(event) {
 		const { name, value } = event.target;
@@ -74,69 +84,27 @@ function BookingForm({ className, css, tab, heading }) {
 		});
 	}
 
-	function handleDateChange(event, name) {
-
-		if (name === "start" && !booking.end) setBooking(prev => {
-			return {
-				...prev,
-				[name]: event,
-				end: event
+	useEffect(() => {
+		function getBookingDetails() {
+			if (localStorage.getItem("booking")) {
+				setBooking(JSON.parse(localStorage.getItem("booking")));
+				localStorage.clear();
 			}
-		});
-		else setBooking(prev => {
-			return {
-				...prev,
-				[name]: event
+		}
+
+		async function getRDates() {
+			const resev = await (await getReservedDates()).data;
+			setReservedDates(resev.data);
+			setLoading(false);
+			if(!hasSetStarted) {
+				setHasSetStarted(true);
+				setBooking(pre => { return {...pre, start: getStartDate(resev.data)}});
 			}
-		});
-	}
-
-	async function submitBooking(event) {
-		event.preventDefault();
-
-		// get the room being booked
-		const theRoom = await (await roomById(location.search.slice(location.search.indexOf("id") + 3, location.search.length))).data.data;
-		const user = cookie.meUser;
-
-		const data = {
-			...booking,
-			room: theRoom._id,
-			//TODO: get the payed from the payment gate way
-			payed: theRoom.price,
-			roomPrice: theRoom.price
 		}
 
-		localStorage.setItem("booking", JSON.stringify(data));
-
-		if (!user) navigate("/auth", { state: { prevPath: location.pathname + location.search } });
-
-		const theData = {
-			...data,
-			user: user._id
-		}
-
-		try {
-			const book = await bookRoom(theData);
-			window.swalWithBootstrapButtons.fire({
-				icon: 'success',
-				title: "Thanks for reserving with us",
-				text: "We will be waiting for you on the day of arrival",
-				showConfirmButton: true
-			});
-			setBooking(initBooking);
-			localStorage.clear();
-
-			console.log("success", book.data);
-		} catch (err) {
-			console.error("Error in booking:", err);
-			setError({
-				isError: true,
-				message: err.response.data.message,
-				title: err.response.data.err,
-				alert: err.response.data.alert
-			});
-		}
-	}
+		getBookingDetails();
+		getRDates();
+	}, [location.pathname, cookie.meUser, initBooking, loading, hasSetStarted]);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>
@@ -158,32 +126,34 @@ function BookingForm({ className, css, tab, heading }) {
 										className="w-100"
 										disablePast={true}
 										value={booking.start}
-										// shouldDisableDate={()=> }
-										renderDay={customDayRenderer}
+										renderDay={(date, selectedDay, pickerDayProp) => customDayRenderer(date, selectedDay, pickerDayProp, reservedDates)}
 										onChange={e => handleDateChange(e, "start")}
 										renderInput={(params) => <TextField {...params} />}
 										required
+										disabled={loading}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={6}>
 									<DatePicker
 										className="w-100"
-										disablePast={true}
+										minDate={moment(booking.start).add(1, "day")}
 										label="Check Out"
 										value={booking.end}
+										renderDay={(date, selectedDay, pickerDayProp) => customDayRenderer(date, selectedDay, pickerDayProp, reservedDates)}
 										onChange={e => handleDateChange(e, "end")}
 										renderInput={(params) => <TextField {...params} />}
 										required
+										disabled={loading}
 									/>
 								</Grid>
 								<Grid item xs={12} sm={6} width="100%" maxWidth="100%">
-									<TextField id="outlined-basic" className="w-100" label="Adult" type="number" variant="outlined" name="noOfAdults" onChange={handleTextChange} value={booking.noOfAdults} />
+									<TextField id="outlined-basic" className="w-100" label="Adult" type="number" variant="outlined" name="noOfAdults" onChange={handleTextChange} value={booking.noOfAdults} disabled={loading} />
 								</Grid>
 								<Grid item xs={12} sm={6} width="100%" maxWidth="100%">
-									<TextField id="outlined-basic" className="w-100" label="Children" type="number" variant="outlined" name="noOfChildren" onChange={handleTextChange} value={booking.noOfChildren} />
+									<TextField id="outlined-basic" className="w-100" label="Children" type="number" variant="outlined" name="noOfChildren" onChange={handleTextChange} value={booking.noOfChildren} disabled={loading} />
 								</Grid>
 							</Grid>
-							<button type="submit" className="primary-btn text-uppercase" onClick={submitBooking}>Start Booking</button>
+							<button type="submit" className="primary-btn text-uppercase" onClick={(e) => submitBooking({ event: e, setBooking, setHasSetStarted, setError, cookie, navigate, location, booking, initBooking })}>Start Booking</button>
 							{
 								error.isError &&
 								<div className="mt-3">

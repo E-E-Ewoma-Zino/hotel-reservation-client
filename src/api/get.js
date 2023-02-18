@@ -2,22 +2,44 @@
 import axios from "axios";
 import host from "../constants/host";
 
+const errMessage = (err) => window.swalWithBootstrapButtons.fire({
+	icon: "error",
+	title: "Could not Connect!",
+	text: `${err}`,
+	showConfirmButton: true
+}).then(()=> window.location.reload());
+
 export async function allRooms(){
-	return await axios.get(host + "rooms/all");
+	try{
+		return await axios.get(host + "rooms/all");
+	}catch(err){
+		console.error("Error::", err);
+		errMessage(err.response.data.message);
+	}
 }
 
 export async function roomById(id){
-	return await axios.get(host + "rooms/id?id=" + id);
+	try{
+		return await axios.get(host + "rooms/id?id=" + id);
+	}catch(err){
+		console.error("Error::", err);
+		errMessage(err.response.data.message);
+	}
 }
 
-export async function getCurrentUser(){
-	return await axios.get(host + "user/");
+export async function getReservedDates(){
+	try{
+		return await axios.get(host + "tracking/reserved");
+	}catch(err){
+		console.error("Error::", err);
+		errMessage(err.response.data.message);
+	}
 }
 
 const getApi = {
 	allRooms,
 	roomById,
-	getCurrentUser
+	getReservedDates
 }
 
 export default getApi;
