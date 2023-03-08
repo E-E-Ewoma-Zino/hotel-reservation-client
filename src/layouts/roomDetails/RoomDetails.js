@@ -33,16 +33,16 @@ export default function Details() {
 					(
 						<div className="details">
 							<div className="row">
-								<div className="col-6">
+								<div className="col-12 col-md-6">
 									<div className="image">
 										<img src={host + room.images[0]?.path} className="img-fluid" alt={room.name} />
 									</div>
 								</div>
-								<div className="col-6">
+								<div className="col-12 col-md-6">
 									<div className="description">
 										<div className="heading">
-											<h2 className="h2 name"><Link to="/rooms/details" className="text-dark">{room.name}</Link></h2>
-											<Link to="#x" className="type text-info">{room.type}</Link>
+											<h2 className="h2 name"><Link to={"/rooms/details?id=" + room._id} className="text-dark">{room.name}</Link></h2>
+											<Link to={"/rooms/type?type=" + room.type} className="type text-info">{room.type}</Link>
 										</div>
 										<div className="body">
 											<p className="body">{room.description}</p>
@@ -50,7 +50,7 @@ export default function Details() {
 										</div>
 										<div className="footer">
 											<h4 className="price h4">${room.price}</h4>
-											<Link to="#x" className="book-now primary-btn text-uppercase">Book Now</Link>
+											<a href={"?id=" + room._id + "#bookingForm"} className="book-now primary-btn text-uppercase">Book Now</a>
 										</div>
 									</div>
 								</div>
@@ -59,7 +59,7 @@ export default function Details() {
 								<div className="col-12">
 									<div className="img-cell">
 										{
-											room.images.map((img, index) => <img key={index} src={host + img?.path} className="img-fluid" alt="room" width={100} />)
+											room.images.map((img, index) => <img key={index} src={host + img?.path} className="img-fluid mx-2" alt="room" width={100} />)
 										}
 									</div>
 								</div>

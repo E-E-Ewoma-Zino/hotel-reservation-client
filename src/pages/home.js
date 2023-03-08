@@ -2,7 +2,7 @@ import CustomerRequest from "../layouts/customerRequest/CustomerRequest";
 import HeroSectionFullScreen from "../layouts/heroSection/HeroSection_fullscreen";
 import OtherServices from "../layouts/otherServices/otherServices";
 import PopularRooms from "../layouts/popularRooms/PopularRooms";
-import TestimonialSection from "../layouts/testimonial/testimonialSection";
+// import TestimonialSection from "../layouts/testimonial/testimonialSection";
 
 
 function Home() {
@@ -13,7 +13,7 @@ function Home() {
 			<HeroSectionFullScreen />
 			<PopularRooms />
 			<OtherServices />
-			<TestimonialSection />
+			{/* <TestimonialSection /> */}
 			<CustomerRequest />
 		</>
 	);

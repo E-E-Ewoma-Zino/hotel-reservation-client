@@ -32,11 +32,13 @@ function PopularRooms() {
 				</div>
 				<div className="row">
 					{
-						rooms.length && rooms.map(room => (
-							<div key={room._id} className="col-lg-4">
-								<RoomCard  name={room.name} type={room.type} price={room.price} img={host + room.images[0]?.path} />
+						rooms.length && rooms.map((room, index) => {
+							if (index > 5) return null;
+
+							return <div key={room._id} className="col-lg-4">
+								<RoomCard id={room._id} name={room.name} type={room.type} price={room.price} img={host + room.images[0]?.path} />
 							</div>
-						))
+						})
 					}
 					{/* <div className="col-lg-4">
 						<RoomCard name="Dream City" type="Paris" price="250" img="/assets/img/d2.jpg" />

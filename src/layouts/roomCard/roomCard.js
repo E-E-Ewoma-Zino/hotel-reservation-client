@@ -1,14 +1,16 @@
 // Room card
 
-function RoomCard({ name, type, price, img }) {
+import { Link } from "react-router-dom";
+
+function RoomCard({ id, name, type, price, img }) {
 	return (
-		<div className="single-destination relative">
+		<div className="single-destination relative mb-1">
 			<div className="thumb relative">
 				<div className="overlay overlay-bg"></div>
 				<img className="img-fluid" src={img} alt={name} />
 			</div>
 			<div className="desc">
-				<a href="#x" className="price-btn">${price}</a>
+				<Link to={"/rooms/details?id=" + id} className="price-btn">${price}</Link>
 				<h4>{name}</h4>
 				<p>{type}</p>
 			</div>

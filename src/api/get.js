@@ -9,9 +9,9 @@ const errMessage = (err) => window.swalWithBootstrapButtons.fire({
 	showConfirmButton: true
 }).then(()=> window.location.reload());
 
-export async function allRooms(){
+export async function allRooms(opt = ''){
 	try{
-		return await axios.get(host + "rooms/all");
+		return await axios.get(host + "rooms/all?type=" + opt);
 	}catch(err){
 		console.error("Error::", err);
 		errMessage(err.response.data.message);

@@ -88,7 +88,6 @@ function BookingForm({ className, css, tab, heading }) {
 		function getBookingDetails() {
 			if (localStorage.getItem("booking")) {
 				setBooking(JSON.parse(localStorage.getItem("booking")));
-				localStorage.clear();
 			}
 		}
 
@@ -102,13 +101,13 @@ function BookingForm({ className, css, tab, heading }) {
 			}
 		}
 
-		getBookingDetails();
 		getRDates();
+		getBookingDetails();
 	}, [location.pathname, cookie.meUser, initBooking, loading, hasSetStarted]);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>
-			<div className={className || "col-lg-4 col-md-6 banner-right"} style={css}>
+			<div id="bookingForm" className={className || "col-lg-4 col-md-6 banner-right"} style={css}>
 				<ul className={"nav nav-tabs" + tab} id="myTab" role="tablist">
 					<li className="nav-item">
 						<a className="nav-link active" id="hotel-tab" data-toggle="tab" href="#xhotel" role="tab"

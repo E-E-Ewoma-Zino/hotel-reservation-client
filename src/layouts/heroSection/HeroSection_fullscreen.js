@@ -1,4 +1,5 @@
 // hero Section
+import { Link } from "react-router-dom";
 import BookingForm from "../bookingForm/BookingForm";
 
 function HeroSectionFullScreen() {
@@ -9,12 +10,11 @@ function HeroSectionFullScreen() {
 				<div className="row fullscreen align-items-center justify-content-between" style={{ height: "55em" }}>
 					<div className="col-lg-6 col-md-6 banner-left">
 						<h6 className="text-white">Away from monotonous life</h6>
-						<h1 className="text-white">Magical Travel</h1>
+						<h1 className="text-white">Easy Reservation</h1>
 						<p className="text-white">
-							If you are looking at blank cassettes on the web, you may be very confused at the difference in
-							price. You may see some for as low as $.17 each.
+							If you find it hard and stressful to go over to the hotel and reserve a room, then this is a solution for you.
 						</p>
-						<a href="#x" className="primary-btn text-uppercase">Get Started</a>
+						<Link to={"/rooms"} className="primary-btn text-uppercase">Get Started</Link>
 					</div>
 					{/* Added Booking form */}
 					<BookingForm />

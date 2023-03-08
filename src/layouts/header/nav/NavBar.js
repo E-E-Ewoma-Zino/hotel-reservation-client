@@ -1,4 +1,5 @@
 // Navbar 
+import { Link } from "react-router-dom";
 import NavLink from "./navLink/NavLink";
 
 function NavBar() {
@@ -6,15 +7,15 @@ function NavBar() {
 		<div className="container main-menu">
 			<div className="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="index.html"><img src="/assets/img/logo.png" alt="" title="" /></a>
+					<Link to="/"><img src="/assets/img/logo.png" alt="logo" title="logo" /></Link>
 				</div>
 				<nav id="nav-menu-container">
 					<ul className="nav-menu">
 						<NavLink url="/home" text="Home" />
-						<NavLink url="/about" text="About" />
-						<NavLink url="/contact" text="Contact" />
+						{/* <NavLink url="/about" text="About" /> */}
+						{/* <NavLink url="/contact" text="Contact" /> */}
 						<NavLink url="/rooms" text="Rooms" />
-						<NavLink url="/blog" text="Blog" className="menu-has-children" child={
+						{/* <NavLink url="/blog" text="Blog" className="menu-has-children" child={
 							<ul>
 								<NavLink url="/blog/home" text="Blog Home" />
 								<NavLink url="/blog/single" text="Blog Single" />
@@ -30,7 +31,7 @@ function NavBar() {
 									</ul>
 								} />
 							</ul>
-						} />
+						} /> */}
 					</ul>
 				</nav>
 			</div>

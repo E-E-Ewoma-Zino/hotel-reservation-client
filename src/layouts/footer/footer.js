@@ -1,5 +1,7 @@
 // footer
 
+import { Link } from "react-router-dom";
+
 function Footer() {
 	function handelBlur_handleFocus(event, str) {
 		event.target.placeholder = str;
@@ -12,11 +14,9 @@ function Footer() {
 				<div className="row">
 					<div className="col-lg-3  col-md-6 col-sm-6">
 						<div className="single-footer-widget">
-							<h6>About Agency</h6>
+							<h6>About</h6>
 							<p>
-								The world has become so fast paced that people don't want to stand by reading a page of
-								information, they would much rather look at a presentation and understand the message. It
-								has come to a point
+								Hotel reservation and payment tracking system is a project set on the purpose of reducing the amount of stress and time it take an individual to reserve a room in a hotel. And also to provide a simpler means of tracking payment of rooms.
 							</p>
 						</div>
 					</div>
@@ -26,18 +26,12 @@ function Footer() {
 							<div className="row">
 								<div className="col">
 									<ul>
-										<li><a href="#x">Home</a></li>
-										<li><a href="#x">Feature</a></li>
-										<li><a href="#x">Services</a></li>
-										<li><a href="#x">Portfolio</a></li>
+										<li><Link to="/">Home</Link></li>
 									</ul>
 								</div>
 								<div className="col">
 									<ul>
-										<li><a href="#x">Team</a></li>
-										<li><a href="#x">Pricing</a></li>
-										<li><a href="#x">Blog</a></li>
-										<li><a href="#x">Contact</a></li>
+										<li><Link to="/rooms">Rooms</Link></li>
 									</ul>
 								</div>
 							</div>
