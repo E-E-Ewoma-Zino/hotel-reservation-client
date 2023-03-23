@@ -14,7 +14,7 @@ export async function allRooms(opt = ''){
 		return await axios.get(host + "rooms/all?type=" + opt);
 	}catch(err){
 		console.error("Error::", err);
-		errMessage(err.response.data.message);
+		errMessage(err?.response?.data? err.response.data.message: "Check your internet connection and try again!");
 	}
 }
 
@@ -23,7 +23,7 @@ export async function roomById(id){
 		return await axios.get(host + "rooms/id?id=" + id);
 	}catch(err){
 		console.error("Error::", err);
-		errMessage(err.response.data.message);
+		errMessage(err?.response?.data? err.response.data.message: "Check your internet connection and try again!");
 	}
 }
 
@@ -32,7 +32,7 @@ export async function getReservedDates(){
 		return await axios.get(host + "tracking/reserved");
 	}catch(err){
 		console.error("Error::", err);
-		errMessage(err.response.data.message);
+		errMessage(err?.response?.data? err.response.data.message: "Check your internet connection and try again!");
 	}
 }
 

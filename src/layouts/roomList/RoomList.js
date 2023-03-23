@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { allRooms } from "../../api/get";
+import RoomSkeleton from "../../components/skeletons/rooms";
 import host from "../../constants/host";
 
 function RoomList({ opt }) {
@@ -25,7 +26,7 @@ function RoomList({ opt }) {
 		<div className="container">
 			<div className="roomList row">
 				{
-					isLoading ? <h4>Loading...</h4> :
+					isLoading ? <RoomSkeleton /> :
 						rooms.length && rooms.map(room => (
 							<div className="col-sm-12 col-xl-6" key={room._id}>
 								<div className="room">

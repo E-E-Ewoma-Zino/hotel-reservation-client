@@ -12,6 +12,7 @@ import allScripts from "./scripts/allScripts";
 import Script from "./scripts/Script";
 import { useEffect, useState } from "react";
 import ScrollToTopOnMount from "./scrollToTopOnMount";
+import Invoice from "../components/Invoice/invoice";
 
 function App() {
 	const [jsScripts, setScripts] = useState([]);
@@ -39,6 +40,7 @@ function App() {
 					<Route path="details" element={<RoomDetails />} />
 					<Route path="type" element={<RoomType />} />
 				</Route>
+				<Route path="/invoice" element={<Invoice />} />
 				<Route path="*" element={<h1 style={{ margin: "5em auto" }}>No Page 404</h1>} />
 			</Routes>
 			<Footer />

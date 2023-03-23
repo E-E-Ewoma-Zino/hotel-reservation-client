@@ -12,7 +12,7 @@ function PopularRooms() {
 		async function topRooms() {
 			const theRoom = await allRooms();
 
-			setRooms(theRoom.data.data);
+			setRooms(theRoom?.data?.data);
 		}
 
 		topRooms();

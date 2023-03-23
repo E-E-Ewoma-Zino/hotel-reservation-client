@@ -10,7 +10,7 @@ function HeroSectionFullScreen() {
 				<div className="row fullscreen align-items-center justify-content-between" style={{ height: "55em" }}>
 					<div className="col-lg-6 col-md-6 banner-left">
 						<h6 className="text-white">Away from monotonous life</h6>
-						<h1 className="text-white">Easy Reservation</h1>
+						<h1 className="text-white text-left">Easy Reservation</h1>
 						<p className="text-white">
 							If you find it hard and stressful to go over to the hotel and reserve a room, then this is a solution for you.
 						</p>

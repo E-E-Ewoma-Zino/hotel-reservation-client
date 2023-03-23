@@ -4,6 +4,7 @@ import { roomById } from "../../api/get";
 import host from "../../constants/host";
 import { Link, useLocation } from "react-router-dom";
 import BookingForm from "../bookingForm/BookingForm";
+import RoomDetailsSkeleton from "../../components/skeletons/roomDetails";
 
 export default function Details() {
 	const [room, setRoom] = useState(null);
@@ -29,7 +30,7 @@ export default function Details() {
 	return (
 		<div className="container">
 			{
-				isLoading ? <h4>Loading...</h4> : room &&
+				isLoading ? <RoomDetailsSkeleton /> : room &&
 					(
 						<div className="details">
 							<div className="row">
