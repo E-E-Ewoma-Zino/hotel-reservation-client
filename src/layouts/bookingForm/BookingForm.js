@@ -218,7 +218,7 @@ function BookingForm({ className, css, tab, heading }) {
 		}
 
 		async function getRDates() {
-			const resev = await (await getReservedDates())?.data;
+			const resev = await (await getReservedDates(location.search.slice(location.search.indexOf("id") + 3, location.search.length)))?.data;
 			setReservedDates(resev?.data);
 			setLoading(false);
 			if (!hasSetStarted) {

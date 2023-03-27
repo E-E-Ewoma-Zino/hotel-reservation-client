@@ -1,5 +1,4 @@
 // Rooms page 
-import Footer from "../layouts/footer/footer";
 import RoomList from "../layouts/roomList/RoomList";
 import HeroSection from "../layouts/heroSection/HeroSection";
 import { useLocation } from "react-router-dom";
@@ -13,9 +12,7 @@ function RoomType() {
 	return (
 		<>
 			<HeroSection name={type.replace("%20", ' ')} />
-			<RoomList opt={type} />
-			<Footer />
-			
+			<RoomList opt={type} />			
 		</>
 	);
 }

@@ -5,6 +5,7 @@ import { PickersDay } from '@mui/x-date-pickers';
 
 export default function customDayRenderer(date, selectedDates, pickersDayProps, reservedDates) {
 	const stringifiedDate = moment(date).format("YYYY-MM-DD");
+
 	if (reservedDates.includes(stringifiedDate)) {
 		return <PickersDay style={{ color: "red", textDecoration: "line-through" }} {...pickersDayProps} disabled />;
 	}

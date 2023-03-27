@@ -12,10 +12,8 @@ import PopularPosts from "../layouts/popularPosts/popularPosts";
 function Auth() {
 	const navigate = useNavigate();
 	const location = useLocation();
-	console.log("fuck", location)
 	const prevPath = location.state.prevPath || '/';
 	const [ cookie, setUserCookie, removeCookie ] = useCookies(["userCookie"]);
-
 	const [hasAccount, setHasAccount] = useState(true);
 	const [error, setError] = useState({
 		isError: false,

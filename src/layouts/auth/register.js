@@ -27,9 +27,9 @@ function Register({ switchAuth, submit }) {
 				<div className="col-12 mt-50 text-center">
 				<Button type="submit" text={
 						!submitting? "Login": <img src="/assets/img/elements/gif/gif1.gif" className="img-fluid" alt="loading" width="50px" />
-					} color="primary" shape="circle" size="e-large" onClick={() => {
+					} color="primary" shape="circle" size="e-large" onClick={(e) => {
 						setSubmitting(true);
-						submit();
+						submit(e);
 					}} />
 					<p className="text-dark">Already have an account? <span className="text-primary cursor-pointer" onClick={switchAuth}>Login</span></p>
 				</div>

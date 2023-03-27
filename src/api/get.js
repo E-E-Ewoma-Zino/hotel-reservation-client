@@ -27,9 +27,10 @@ export async function roomById(id){
 	}
 }
 
-export async function getReservedDates(){
+export async function getReservedDates(roomId){
+	if (roomId === '') roomId = "63ef08d9e87073b6a7aced27";
 	try{
-		return await axios.get(host + "tracking/reserved");
+		return await axios.get(host + "tracking/reserved?roomId=" + roomId);
 	}catch(err){
 		console.error("Error::", err);
 		errMessage(err?.response?.data? err.response.data.message: "Check your internet connection and try again!");
