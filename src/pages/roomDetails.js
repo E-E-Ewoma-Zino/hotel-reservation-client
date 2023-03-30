@@ -2,12 +2,11 @@
 import HeroSection from "../layouts/heroSection/HeroSection";
 import Details from "../layouts/roomDetails/RoomDetails";
 
-function RoomDetails() {
+function RoomDetails(){
 	return (
 		<>
 			<HeroSection name="Details" />
 			<Details />
-
 		</>
 	);
 }
