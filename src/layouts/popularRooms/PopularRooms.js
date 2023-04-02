@@ -36,7 +36,7 @@ function PopularRooms() {
 							if (index > 5) return null;
 
 							return <div key={room._id} className="col-lg-4">
-								<RoomCard id={room._id} name={room.name} type={room.type} price={room.price} img={host + room.images[0]?.path} />
+								<RoomCard id={room._id} name={room.name} type={room.type} price={room.price} img={room.images[0]?.cloud? room.images[0]?.cloud?.secure_url: host + room.images[0]?.path} />
 							</div>
 						})
 					}

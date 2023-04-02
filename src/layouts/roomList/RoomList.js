@@ -31,7 +31,7 @@ function RoomList({ opt }) {
 							<div className="col-sm-12 col-xl-6" key={room._id}>
 								<div className="room">
 									<Link to={"/rooms/details?id=" + room._id}>
-										<div className="room-img cursor-pointer" style={{ backgroundImage: `url("${host + room.images[0]?.path.replace("uploads", "uploads/")}")` }}></div>
+										<div className="room-img cursor-pointer" style={{ backgroundImage: `url("${room.images[0]?.cloud? room.images[0]?.cloud?.secure_url: host + room.images[0]?.path?.replace("uploads", "uploads/")}")` }}></div>
 									</Link>
 									<div className="room-description">
 										<div className="heading">

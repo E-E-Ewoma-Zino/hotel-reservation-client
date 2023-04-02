@@ -36,7 +36,7 @@ export default function Details() {
 							<div className="row">
 								<div className="col-12 col-md-6">
 									<div className="image">
-										<img src={host + room.images[0]?.path} className="img-fluid" alt={room.name} />
+										<img src={room.images[0]?.cloud? room.images[0]?.cloud?.secure_url: host + room.images[0]?.path} className="img-fluid" alt={room.name} />
 									</div>
 								</div>
 								<div className="col-12 col-md-6">
@@ -60,7 +60,7 @@ export default function Details() {
 								<div className="col-12">
 									<div className="img-cell">
 										{
-											room.images.map((img, index) => <img key={index} src={host + img?.path} className="img-fluid mx-2" alt="room" width={100} />)
+											room.images.map((img, index) => <img key={index} src={img?.cloud? img?.cloud?.secure_url: host + img?.path} className="img-fluid mx-2" alt="room" width={100} />)
 										}
 									</div>
 								</div>
